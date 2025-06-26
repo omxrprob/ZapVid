@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ZapVid - Feed</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h1>ZapVid Feed</h1>
+  <button onclick="logout()">Logout</button>
+  <div class="video-feed" id="feed"></div>
+  <a href="upload.html">Upload a Video</a>
+
+  <script src="firebase-config.js"></script>
+  <script>
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    });
+
+    const feed = document.getElementById('feed');
+
+    db.collection('videos')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(snapshot => {
+        feed.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const video = document.createElement('video');
+          video.src = data.videoURL;
+          video.controls = true;
+          feed.appendChild(video);
+        });
+      });
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = 'login.html';
+      });
+    }
+  </script>
+</body>
+</html>
