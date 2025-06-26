@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ZapVid - Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+  <h1>ZapVid</h1>
+  <input type="email" id="email" placeholder="Email" /><br />
+  <input type="password" id="password" placeholder="Password" /><br />
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Log In</button>
+
+  <script src="firebase-config.js"></script>
+  <script>
+    async function signup() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      try {
+        await auth.createUserWithEmailAndPassword(email, password);
+        alert('Signed up! Redirecting to feed...');
+        window.location.href = 'index.html';
+      } catch (e) {
+        alert('Error: ' + e.message);
+      }
+    }
+
+    async function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        alert('Logged in! Redirecting to feed...');
+        window.location.href = 'index.html';
+      } catch (e) {
+        alert('Error: ' + e.message);
+      }
+    }
+  </script>
+</body>
+</html>
