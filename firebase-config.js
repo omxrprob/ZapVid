@@ -1,5 +1,6 @@
-// Paste this into firebase-config.js
+// firebase-config.js
 
+// Your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBGhYgG-K8PlKhkmNrznWoawqfMiTLE8w4",
   authDomain: "zapvid-d4665.firebaseapp.com",
@@ -10,7 +11,10 @@ const firebaseConfig = {
   measurementId: "G-HGK9SE40BH"
 };
 
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+
+// Set up services
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
