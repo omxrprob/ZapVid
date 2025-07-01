@@ -11,10 +11,21 @@
 </head>
 <body>
   <h1>ZapVid</h1>
+
+  <!-- Email login -->
   <input type="email" id="email" placeholder="Email" /><br />
   <input type="password" id="password" placeholder="Password" /><br />
   <button onclick="signup()">Sign Up</button>
   <button onclick="login()">Log In</button>
+
+  <br><br>
+
+  <!-- Auto-Account login -->
+  <button onclick="autoLogin()">Use Auto-Account</button>
+
+  <p>By creating an account or using Auto-Account, you agree to our 
+    <a href="tos.html" target="_blank">Terms of Service</a>.
+  </p>
 
   <script src="firebase-config.js"></script>
   <script>
@@ -41,7 +52,16 @@
         alert('Error: ' + e.message);
       }
     }
+
+    async function autoLogin() {
+      try {
+        await auth.signInAnonymously();
+        alert('Auto-Account logged in! Redirecting to feed...');
+        window.location.href = 'index.html';
+      } catch (e) {
+        alert('Error: ' + e.message);
+      }
+    }
   </script>
 </body>
 </html>
-<p>By creating an account, you agree to our <a href="tos.html" target="_blank">Terms of Service</a>.</p>
